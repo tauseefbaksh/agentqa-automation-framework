@@ -1,0 +1,19 @@
+Context: We are executing Phase 1 (Milestone 0) of the AgentQA architectural blueprint.
+
+Action: Generate the complete repository scaffold immediately. Do not implement real agentic logic; everything must be a stub that compiles and runs.
+
+Requirements:
+
+Create a root pom.xml for a Java 17 Maven multi-module reactor named agentqa-core-parent.
+
+Create the core-engine/ directory with the following submodules (each with a proper pom.xml): agentqa-spec-parser, agentqa-agent-core, agentqa-test-runner, agentqa-baseline, agentqa-eval, and agentqa-reporting.
+
+In agentqa-spec-parser and agentqa-agent-core, generate the interface stubs (OpenApiSpecParser, UiSnapshotParser, Planner, Executor, SelfHealer, HealingMemory) with rich Javadoc explaining their future roles. Make them throw UnsupportedOperationException.
+
+In agentqa-test-runner, wire dependencies for REST Assured, Playwright, and JUnit 5. Create a HealthCheckTest.java with a single passing REST Assured test against a public API (e.g., reqres.in) so mvn test goes green.
+
+Create a highly professional root README.md containing the Executive Summary, module architecture, the roadmap table, and a specific note stating that from Milestone 1 onward, reproducibility will follow a Mode A (local-lite) and Mode B (full-stack) dual-profile design.
+
+Create the empty placeholder files: docs/llm-prompts.md and fixtures/llm-responses/.gitkeep.
+
+Create a standard .github/workflows/ci.yml that runs mvn clean test on JDK 17.
