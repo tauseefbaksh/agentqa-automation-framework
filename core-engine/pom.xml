@@ -7,12 +7,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>core-engine/agentqa-spec-parser</module>
-        <module>core-engine/agentqa-agent-core</module>
-        <module>core-engine/agentqa-test-runner</module>
-        <module>core-engine/agentqa-baseline</module>
-        <module>core-engine/agentqa-eval</module>
-        <module>core-engine/agentqa-reporting</module>
+        <module>agentqa-spec-parser</module>
+        <module>agentqa-agent-core</module>
+        <module>agentqa-test-runner</module>
+        <module>agentqa-baseline</module>
+        <module>agentqa-eval</module>
+        <module>agentqa-reporting</module>
     </modules>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

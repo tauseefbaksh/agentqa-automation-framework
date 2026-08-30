@@ -17,4 +17,4 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn clean test
+      run: mvn clean test -f core-engine/pom.xml
