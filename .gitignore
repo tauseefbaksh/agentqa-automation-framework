@@ -1,1 +1,10 @@
 .aider*
+
+# Maven
+target/
+
+# IntelliJ
+.idea/
+
+# Logs
+*.log
