@@ -7,3 +7,4 @@ spring:
       server:
         git:
           uri: file:///D:/agentqa-automation-framework/config-repo
+          default-label: master

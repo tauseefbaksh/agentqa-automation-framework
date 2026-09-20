@@ -1,10 +1,11 @@
 .aider*
 
 # Maven
-target/
+**/target/
 
 # IntelliJ
 .idea/
+*.iml
 
 # Logs
 *.log
