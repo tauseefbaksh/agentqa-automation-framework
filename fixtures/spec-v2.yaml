@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  version: 2.0.0
+paths:
+  /users:
+    get:
+      responses:
+        '200':
+          description: A list of users
+  /new-endpoint:
+    get:
+      responses:
+        '200':
+          description: A new endpoint

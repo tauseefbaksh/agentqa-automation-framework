@@ -1,0 +1,31 @@
+{
+  "component": "div",
+  "attributes": {
+    "data-testid": "user-list"
+  },
+  "children": [
+    {
+      "component": "ul",
+      "children": [
+        {
+          "component": "li",
+          "attributes": {
+            "data-testid": "user-1"
+          },
+          "children": [
+            "User 1"
+          ]
+        },
+        {
+          "component": "li",
+          "attributes": {
+            "data-testid": "user-2"
+          },
+          "children": [
+            "User 2"
+          ]
+        }
+      ]
+    }
+  ]
+}
