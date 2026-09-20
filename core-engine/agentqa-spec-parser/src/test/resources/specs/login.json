@@ -1,0 +1,11 @@
+{
+  "name": "User login",
+  "description": "Logs in through the browser and checks the API response.",
+  "steps": [
+    { "type": "UI", "action": "fill", "target": "#email", "value": "qa@example.com" },
+    { "type": "API", "action": "request", "method": "GET", "url": "/health" }
+  ],
+  "assertions": [
+    { "type": "response", "path": "status", "operator": "equals", "expected": 200 }
+  ]
+}

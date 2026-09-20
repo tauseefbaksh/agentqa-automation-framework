@@ -1,0 +1,12 @@
+com\agentqa\eval\EvalCli.class
+com\agentqa\eval\LiveEvaluationSummary.class
+com\agentqa\eval\EvaluationMode.class
+com\agentqa\eval\HttpCompletionProvider.class
+com\agentqa\eval\EvaluationHarness$EvaluationFailure.class
+com\agentqa\eval\EvaluationHarness.class
+com\agentqa\eval\CompletionProvider.class
+com\agentqa\eval\EvaluationMetrics.class
+com\agentqa\eval\LiveEvaluationSummary$Metric.class
+com\agentqa\eval\CachedCompletionProvider.class
+com\agentqa\eval\ChangelogWriter.class
+com\agentqa\eval\EvaluationCase.class

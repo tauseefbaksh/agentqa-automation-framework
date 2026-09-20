@@ -1,0 +1,8 @@
+Create a temporary devops/docker-compose.phase3.yml with services:
+postgres (env POSTGRES_DB=agentqa), mongo, zookeeper, kafka (depends_on
+zookeeper), keycloak (dev mode, realm import from ./keycloak/agentqa-realm.json
+if present, else empty dev realm). Expose standard ports
+(5432, 27017, 9092, 8180 for keycloak). Add healthchecks for postgres and
+mongo. This is Mode B for Phase 3 only — the full stack including the
+Java/Node services gets consolidated into devops/docker-compose.yml in
+Phase 4, don't build that part yet.

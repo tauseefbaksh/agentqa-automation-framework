@@ -1,0 +1,11 @@
+Create services/discovery-server/ as a Spring Boot 3.x Eureka server.
+- pom.xml: parent org.springframework.boot:spring-boot-starter-parent,
+  dependency spring-cloud-starter-netflix-eureka-server (use Spring Cloud
+  2023.0.x BOM), Java 17.
+- Main class DiscoveryServerApplication with @EnableEurekaServer.
+- src/main/resources/application.yml: server.port=8761,
+  eureka.client.register-with-eureka=false,
+  eureka.client.fetch-registry=false.
+- A one-line README.md in the folder saying this is the Eureka registry
+  used only when Spring profile "full" is active; lite-profile services
+  never register here.

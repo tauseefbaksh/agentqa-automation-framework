@@ -1,0 +1,17 @@
+Extend realtime-gateway (existing skeleton — don't restructure it) with:
+- kafkajs consumer, group "realtime-gateway-group", subscribed to
+  "test-run.events" and "healing-proposal.events". On each message:
+  (a) write an ExecutionLog document (existing Mongoose model) including
+      the riskFlag field from the payload,
+  (b) emit via Socket.IO on namespace "/live", to room `test-run:${testRunId}`.
+- socket.io server attached to the existing Express http server.
+- JWT middleware (jsonwebtoken + jwks-rsa) validating tokens against the
+  Keycloak realm "agentqa" JWKS endpoint (issuer-uri as an env var),
+  applied to all /api/* routes.
+- GET /api/logs/:testRunId/export — same auth, additionally requires an
+  "auditor" role claim in the token, else 403.
+- swagger-jsdoc + swagger-ui-express documenting all /api/logs routes,
+  served at /api-docs.
+
+Match field names in the ExecutionLog write exactly to the Java payload
+shape (attached) — do not rename testRunId/riskFlag/eventType.

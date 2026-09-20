@@ -1,0 +1,17 @@
+Create services/healing-worker-service/, package com.agentqa.healing,
+port 8082, "full" profile only (in "lite" profile this logic already
+lives inside test-orchestrator-service per the InMemoryEventPublisher
+design — add a code comment saying so, don't duplicate the pipeline).
+
+- Kafka consumer on topic "test-run.events", filtering to status=FAILED.
+- On consume: invoke the embedded agentqa-agent-core Planner/Executor/
+  SelfHealer to produce a HealingProposal (with patchType and riskFlag).
+- @FeignClient (registered through Eureka) calling
+  POST /api/v1/healing-proposals on test-orchestrator-service to persist it.
+- Wrap the Feign call AND the LLM invocation in a Resilience4j
+  CircuitBreaker + Retry (application-full.yml config), with a documented
+  fallback: mark the attempt FAILED_TO_GENERATE rather than dropping it
+  silently.
+
+Write a test that stubs a Feign client failure and asserts the circuit
+breaker's fallback path is taken, not an unhandled exception.

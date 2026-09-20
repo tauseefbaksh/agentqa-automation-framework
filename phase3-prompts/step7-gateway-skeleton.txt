@@ -1,0 +1,10 @@
+Create realtime-gateway/ as an Express app, port 4000.
+- package.json: express, mongoose, dotenv. No Kafka/Socket.IO yet.
+- src/app.js: Express app, JSON body parsing, a health check GET /health.
+- src/models/ExecutionLog.js: Mongoose schema
+  {testRunId: String, eventType: String, payload: Object, riskFlag: String,
+  timestamp: {type: Date, default: Date.now}}.
+- src/routes/logs.js: GET /api/logs/:testRunId supporting ?page&limit
+  (pagination), ?sort=timestamp, ?eventType= filter — query ExecutionLog,
+  return JSON.
+- .env.example with MONGO_URI and PORT.

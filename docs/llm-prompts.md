@@ -1,5 +1,8 @@
 # LLM Prompts
 
+Prompt registry: `baseline.oneshot.v1.0`, `planner.diff.v1.0`,
+`healer.patch.v1.0`, `executor.selection.v1.0`, and `verification.guard.v1.0`.
+
 This file will contain prompts for large language models (LLMs) to generate responses.
 
 ## System Prompts

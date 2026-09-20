@@ -1,0 +1,44 @@
+Create services/test-orchestrator-service/, package com.agentqa.orchestrator,
+Spring Boot 3.x, port 8081, for now ONLY wire the "lite" Spring profile
+(no Eureka, no config-server, no Postgres, no real Keycloak yet — that's
+a separate step).
+
+Entities (Spring Data JPA, H2 in-memory for lite profile, schema
+auto-generated):
+- TestRun: id, specVersion, status, startedAt, completedAt
+- TestCase: id, testRunId (FK), name, status, assertionDiff
+- HealingProposal: id, testCaseId (FK), proposedPatch,
+  patchType [SELECTOR_OR_PAYLOAD_FIX, ASSERTION_CHANGE],
+  riskFlag [NONE, HIGH_RISK_RELAXATION],
+  status [PENDING, APPROVED, REJECTED], createdAt, reviewedBy
+Match these field names exactly to the attached metrics.json shape where
+they overlap (caseId maps to TestCase.name or a new externalCaseId field
+— pick one and document it in a code comment).
+
+Controllers:
+  POST /api/v1/test-runs
+  GET  /api/v1/test-runs/{id}
+  GET  /api/v1/test-runs
+  GET  /api/v1/healing-proposals?status=PENDING
+  POST /api/v1/healing-proposals/{id}/approve
+  POST /api/v1/healing-proposals/{id}/reject
+
+For the approve endpoint: if the target HealingProposal has
+riskFlag=HIGH_RISK_RELAXATION, require a request body field
+{"escalationConfirmed": true} or return 409 Conflict — normal approval
+alone must not be sufficient for a high-risk proposal.
+
+Publish to the EventPublisher (attached) on every TestRun/HealingProposal
+status change, using topics "test-run.events" and "healing-proposal.events".
+
+Security: a mock JWT decoder active only under "lite" profile
+(agentqa.demo-mode=true) that accepts a fixed bearer token "demo-token"
+and rejects everything else — protect the approve/reject endpoints with
+it. Wire this via Spring Security's OAuth2 resource server support with
+a custom JwtDecoder bean, not by disabling security outright.
+
+application-lite.yml: H2 datasource, server.port=8081,
+agentqa.demo-mode=true.
+
+Write MockMvc tests: approving a HIGH_RISK_RELAXATION proposal without
+escalationConfirmed=true returns 409; with it, returns 200.

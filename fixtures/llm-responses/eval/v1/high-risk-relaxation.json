@@ -1,0 +1,13 @@
+{
+  "promptId": "eval",
+  "promptVersion": "v1",
+  "caseId": "high-risk-relaxation",
+  "breakingChange": true,
+  "verifiedAndPassing": true,
+  "targetPasses": true,
+  "siblingRegressionFails": false,
+  "proposed": true,
+  "baselineTtrSeconds": 18.0,
+  "agenticTtrSeconds": 7.5,
+  "riskFlag": "HIGH_RISK_RELAXATION"
+}

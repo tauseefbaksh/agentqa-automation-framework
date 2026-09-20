@@ -1,0 +1,26 @@
+In a new module core-engine/agentqa-eventing (or inside agentqa-agent-core
+if you prefer no new module — pick one and be consistent), create:
+
+1. Interface EventPublisher with:
+   void publish(String topic, Object event);
+   void subscribe(String topic, java.util.function.Consumer<Object> handler);
+
+2. KafkaEventPublisher implements EventPublisher — wraps a
+   KafkaTemplate<String, Object> for publish, and a @KafkaListener-based
+   registration path for subscribe. Only active under Spring profile "full".
+
+3. InMemoryEventPublisher implements EventPublisher — a thread-safe,
+   in-process pub/sub using a ConcurrentHashMap<String, List<Consumer<Object>>>
+   and synchronous dispatch on publish (no separate thread pool needed for
+   this use case). Only active under Spring profile "lite" (or "!full").
+
+4. A @Configuration class that exposes exactly one EventPublisher bean,
+   selected by profile via @Profile, so calling code never knows which
+   implementation it got.
+
+Events published on topics "test-run.events" and "healing-proposal.events"
+carry HealingProposal-shaped payloads including riskFlag and patchType
+fields — match the field names exactly as used in SelfHealerImpl (attached).
+
+Write a JUnit 5 test that publishes an event on InMemoryEventPublisher and
+asserts the subscribed handler receives it synchronously.

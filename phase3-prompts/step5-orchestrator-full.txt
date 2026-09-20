@@ -1,0 +1,17 @@
+Extend test-orchestrator-service (existing lite-profile code — do not
+remove or break it) to add a "full" Spring profile:
+- PostgreSQL datasource (spring-boot-starter-data-jpa + postgresql driver),
+  same entity classes, no schema changes.
+- Eureka client registration (spring-cloud-starter-netflix-eureka-client),
+  active only under "full".
+- Spring Cloud Config client pulling from config-server at
+  services/config-server, active only under "full".
+- Replace the mock JWT decoder with a real OAuth2 resource-server config
+  validating tokens against a Keycloak realm "agentqa"
+  (issuer-uri configurable via application-full.yml).
+- Actuator: expose health, metrics, prometheus endpoints in both
+  profiles, but only wire Micrometer→Prometheus registry and Zipkin
+  tracing under "full" (skip both in lite — not worth the setup cost).
+application-full.yml with placeholders for the Postgres URL, Keycloak
+issuer-uri, and Zipkin endpoint, each documented with a comment on what
+env var overrides it in docker-compose later.

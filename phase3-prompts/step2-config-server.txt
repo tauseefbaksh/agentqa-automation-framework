@@ -1,0 +1,10 @@
+Create services/config-server/ as a Spring Cloud Config Server.
+- pom.xml: spring-cloud-config-server dependency, Java 17.
+- Main class ConfigServerApplication with @EnableConfigServer.
+- application.yml: server.port=8888,
+  spring.cloud.config.server.git.uri=file://../../config-repo
+  (a local git-backed folder, native filesystem backend is fine for
+  coursework).
+- Create config-repo/ at the repo root with two placeholder files:
+  test-orchestrator-service.yml and healing-worker-service.yml, each
+  just a comment "# populated in later steps".
